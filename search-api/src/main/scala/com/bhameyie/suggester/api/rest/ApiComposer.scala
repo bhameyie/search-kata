@@ -1,4 +1,4 @@
-package com.bhameyie.suggester.rest
+package com.bhameyie.suggester.api.rest
 
 import java.util.UUID
 import java.util.concurrent.TimeUnit
@@ -19,10 +19,10 @@ import scala.concurrent.{ExecutionContext, Future}
 import scala.concurrent.duration._
 import scala.util.{Failure, Success, Try}
 import akka.pattern.ask
-import com.bhameyie.suggester.api.database.ApplicationDatabase
 import com.bhameyie.suggester.api.domain.SupervisedActorFactory
 import com.bhameyie.suggester.api.domain.protocols.SearchResult
 import com.bhameyie.suggester.api.rest.dtos.{PresentableSuggestions, SearchRequest}
+import com.bhameyie.suggester.database.ApplicationDatabase
 
 object ApiComposer {
 

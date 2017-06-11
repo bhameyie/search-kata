@@ -1,4 +1,4 @@
-package com.bhameyie.suggester.api.actors
+package com.bhameyie.suggester.actors
 
 object SupervisionStrategizer {
 

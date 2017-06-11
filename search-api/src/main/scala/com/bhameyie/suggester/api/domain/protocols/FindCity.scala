@@ -1,4 +1,4 @@
-package com.bhameyie.suggester.domain.protocols
+package com.bhameyie.suggester.api.domain.protocols
 
 import com.bhameyie.suggester.api.domain.protocols.Coordinates
 

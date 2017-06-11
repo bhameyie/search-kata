@@ -1,7 +1,7 @@
-package com.bhameyie.suggester.domain
+package com.bhameyie.suggester.api.domain
 
 import akka.actor.{ActorRef, ActorSystem}
-import com.bhameyie.suggester.api.actors.SupervisionStrategizer
+import com.bhameyie.suggester.actors.SupervisionStrategizer
 import com.typesafe.config.Config
 import org.mongodb.scala.MongoDatabase
 

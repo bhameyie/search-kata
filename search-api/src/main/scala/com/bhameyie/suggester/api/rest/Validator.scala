@@ -1,4 +1,4 @@
-package com.bhameyie.suggester.rest
+package com.bhameyie.suggester.api.rest
 
 import cats.data.Validated
 import cats.data.Validated.{Invalid, Valid}

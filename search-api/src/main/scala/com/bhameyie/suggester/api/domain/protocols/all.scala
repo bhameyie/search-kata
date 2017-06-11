@@ -4,7 +4,7 @@ import akka.actor.ActorRef
 
 case class Coordinates(longitude: Double, latitude: Double)
 
-case class GeoSpatialId(id: String)
+case class GeoSpatialId(id: Int)
 
 case class RankedCityRecord(score: Double, record: CityRecord)
 

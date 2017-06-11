@@ -1,4 +1,4 @@
-package com.bhameyie.suggester.api.database
+package com.bhameyie.suggester.database
 
 /**
   * Created by bhameyie on 6/10/17.
@@ -11,7 +11,7 @@ case class DbCoordinate(
                            `type`: String="Point"
                        )
 
-case class DatabaseCityRecord(spatialId:String,
+case class DatabaseCityRecord(spatialId:Int,
                               name:String,
                              country:String,
                               location:DbCoordinate,

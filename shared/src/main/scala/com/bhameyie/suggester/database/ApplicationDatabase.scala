@@ -1,4 +1,4 @@
-package com.bhameyie.suggester.api.database
+package com.bhameyie.suggester.database
 
 import java.util
 

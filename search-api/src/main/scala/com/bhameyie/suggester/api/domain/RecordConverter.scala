@@ -1,7 +1,7 @@
-package com.bhameyie.suggester.domain
+package com.bhameyie.suggester.api.domain
 
-import com.bhameyie.suggester.api.database.DatabaseCityRecord
 import com.bhameyie.suggester.api.domain.protocols.{CityRecord, Coordinates, GeoSpatialId}
+import com.bhameyie.suggester.database.DatabaseCityRecord
 
 /**
   * Created by bhameyie on 6/11/17.
