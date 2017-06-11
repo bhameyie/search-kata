@@ -4,7 +4,7 @@ import com.typesafe.config.Config
 import org.mongodb.scala.MongoDatabase
 
 /**
-  * Created by bhameyie on 6/10/17.
+  * Created by bhameyie on 6/11/17.
   */
 object ApplicationDatabase {
 
