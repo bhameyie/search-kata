@@ -7,7 +7,8 @@ import com.bhameyie.suggester.api.domain.protocols._
 
 
 object SearchController {
-  def apply(): Props = ???
+  def apply(ranker: ActorRef, cityFinder: ActorRef): Props =
+    Props(new SearchController(ranker, cityFinder))
 }
 
 class SearchController(ranker: ActorRef, cityFinder: ActorRef) extends Actor with ActorLogging {

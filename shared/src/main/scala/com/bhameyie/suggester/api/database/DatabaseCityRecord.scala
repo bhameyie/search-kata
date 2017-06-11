@@ -9,3 +9,5 @@ import org.mongodb.scala.MongoDatabase
 case class DatabaseCityRecord(spatialId:String)
 
 
+
+

@@ -1,7 +1,7 @@
 package com.bhameyie.suggester.api.domain
 
 import akka.actor.{Actor, ActorLogging, ActorRef, Props}
-import com.bhameyie.suggester.api.database.DatabaseCityRecord
+import com.bhameyie.suggester.api.database.{Collections, DatabaseCityRecord}
 import com.bhameyie.suggester.api.domain.protocols.CityLookupResult.{MultipleFound, NoMatchFound, SingleMatch}
 import com.bhameyie.suggester.api.domain.protocols.SearchCriteria.{SearchByQuery, SearchByQueryAndCoordinates}
 import org.mongodb.scala.MongoDatabase
@@ -17,7 +17,7 @@ class CityFinder(mongoDatabase: MongoDatabase) extends Actor with ActorLogging {
   import context.dispatcher
   import org.mongodb.scala.model.Filters
 
-  private val recordsCollection = mongoDatabase.getCollection[DatabaseCityRecord]("city_records")
+  private val recordsCollection = mongoDatabase.getCollection[DatabaseCityRecord](Collections.cityRecords)
 
   private def search(q: Bson, originator: ActorRef, nameQuery: String) = {
     val recs = recordsCollection.find(q)
