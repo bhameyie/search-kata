@@ -1,0 +1,15 @@
+*.g.yaml
+node_modules
+.DS_Store
+logs
+.ensime_cache
+target
+.idea
+.idea_modules
+.classpath
+*.class
+.settings
+RUNNING_PID
+dist
+.pids
+*.iml
