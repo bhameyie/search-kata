@@ -1,8 +1,10 @@
 package com.bhameyie.suggester.importer
 
+import scala.util.{Failure, Success}
 
-object Main extends App {
+object Main extends App  {
 
+  import org.mongodb.scala._
   import akka.actor.ActorSystem
   import akka.stream.scaladsl._
   import akka.stream.{ActorMaterializer, ActorMaterializerSettings, Supervision}
@@ -15,8 +17,16 @@ object Main extends App {
   import org.mongodb.scala.model.Filters._
   import org.mongodb.scala.result.DeleteResult
 
-
   private val conf = ConfigFactory.load()
+  private val recordsCollection = {
+    val mongoDatabase = ApplicationDatabase(conf)
+
+    val coll = mongoDatabase.getCollection[DatabaseCityRecord](Collections.cityRecords)
+    coll.createIndex(org.mongodb.scala.model.Indexes.geo2d("location"))
+    coll.createIndex(org.mongodb.scala.model.Indexes.text("spatialId"), new IndexOptions().unique(true))
+    coll
+  }
+
   private implicit val system = {
     val s = ActorSystem("Suggester")
     sys.addShutdownHook(s.terminate())
@@ -27,19 +37,13 @@ object Main extends App {
 
   private val validityLogging = ExecutionLogger.logValidationFailures(logger) _
 
-  private val decider: Supervision.Decider = _ => Supervision.Restart
+  private val decider: Supervision.Decider = _ => Supervision.Stop
 
   private implicit val materializer = ActorMaterializer(
     ActorMaterializerSettings(system).withSupervisionStrategy(decider))
 
   private implicit val executionContext = system.dispatcher
-  private val recordsCollection = {
-    val mongoDatabase = ApplicationDatabase(conf)
-    val coll = mongoDatabase.getCollection[DatabaseCityRecord](Collections.cityRecords)
-    coll.createIndex(org.mongodb.scala.model.Indexes.geo2d("location"))
-    coll.createIndex(org.mongodb.scala.model.Indexes.text("spatialId"), new IndexOptions().unique(true))
-    coll
-  }
+
 
   Validator.validate(args) match {
     case Invalid(e) => validityLogging(e)
@@ -54,14 +58,20 @@ object Main extends App {
           val rec = FileCityRecord(tsvSplit)
           RecordConverter.convert(rec).toList
         }
-        .map(e => (recordsCollection.deleteMany(in("spatialId", e.map(_.spatialId))), e))
-        .runForeach { e =>
-          val (obs, recs) = e
+        .mapAsync(4){ e =>
+            recordsCollection.deleteMany(Document("spatialId"-> Document("$in" -> e.map(_.spatialId))))
+              .toFuture.flatMap(x=> recordsCollection.insertMany(e).toFuture)
 
-          obs.subscribe((res: DeleteResult) => if (res.wasAcknowledged()) {
-            recordsCollection.insertMany(recs)
-          })
         }
+        .to(Sink.ignore).run().onComplete {
+
+        case Failure(exception) =>
+          logger.error(s"An error occurred while processing the stream. ${exception.getMessage}", exception)
+        case Success(_) =>
+
+          logger.debug("COMPLETED SUCCESSFULLY")
+          system.terminate()
+      }
   }
 }
 

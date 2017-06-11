@@ -11,8 +11,6 @@ object Validator {
     args match {
       case Array() => Invalid(ValidationFailures.NoArgumentsProvided)
 
-      case Array(_, _*) => Invalid(ValidationFailures.TooManyArgumentsProvided)
-
       case Array(single) if OptionalStringParser.parse(single).isEmpty =>
         Invalid(ValidationFailures.NoArgumentsProvided)
 
@@ -20,6 +18,8 @@ object Validator {
         Invalid(ValidationFailures.PathDoesNotExist(single))
 
       case Array(single) => Valid(Paths.get(single))
+
+      case Array(_, _*) => Invalid(ValidationFailures.TooManyArgumentsProvided)
 
     }
   }
