@@ -1,4 +1,4 @@
-package com.bhameyie.suggester.api.domain
+package com.bhameyie.suggester.api.database
 
 import com.typesafe.config.Config
 import org.mongodb.scala.MongoDatabase

@@ -20,8 +20,8 @@ import scala.concurrent.{ExecutionContext, Future}
 import scala.concurrent.duration._
 import scala.util.{Failure, Success, Try}
 import akka.pattern.ask
-import com.bhameyie.suggester.api.domain.ApplicationDatabase
-import com.bhameyie.suggester.api.domain.actors.SupervisedActorFactory
+import com.bhameyie.suggester.api.database.ApplicationDatabase
+import com.bhameyie.suggester.api.domain.SupervisedActorFactory
 import com.bhameyie.suggester.api.domain.protocols.SearchResult
 import com.bhameyie.suggester.api.rest.dtos.{PresentableSuggestions, SearchRequest}
 

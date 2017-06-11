@@ -1,4 +1,4 @@
-package com.bhameyie.suggester.api.domain.actors
+package com.bhameyie.suggester.api.domain
 
 import akka.actor.{ActorRef, ActorSystem}
 import com.typesafe.config.Config
