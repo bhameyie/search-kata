@@ -7,7 +7,7 @@ import org.mongodb.scala.MongoDatabase
 import org.mongodb.scala.bson.conversions.Bson
 
 object CityFinder {
-  def apply(mongoDatabase: MongoDatabase): Props = ???
+  def apply(mongoDatabase: MongoDatabase): Props = Props(new CityFinder(mongoDatabase))
 }
 
 class CityFinder(mongoDatabase: MongoDatabase) extends Actor with ActorLogging {
@@ -40,7 +40,7 @@ class CityFinder(mongoDatabase: MongoDatabase) extends Actor with ActorLogging {
 
 
     case criteria: SearchByQueryAndCoordinates =>
-      val q = Filters.and(Filters.regex("name", s"/^${criteria.nameQuery}/"),
+      val q = Filters.and(Filters.regex("name", s"/${criteria.nameQuery}/"),
         Filters.near("location", criteria.coordinates.longitude, criteria.coordinates.latitude)
       )
 

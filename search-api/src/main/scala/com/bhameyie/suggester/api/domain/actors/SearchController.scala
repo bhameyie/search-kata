@@ -1,11 +1,9 @@
 package com.bhameyie.suggester.api.domain.actors
 
 import akka.actor.{Actor, ActorLogging, ActorRef, Props}
-import com.bhameyie.suggester.api.domain.protocols.CityLookupResult.{MultipleFound, NoMatchFound, SingleMatch}
-import com.bhameyie.suggester.api.domain.protocols._
+import com.bhameyie.suggester.api.domain.protocols.CityLookupResult._
 import com.bhameyie.suggester.api.domain.protocols.SearchCriteria.{SearchByQuery, SearchByQueryAndCoordinates}
-import org.mongodb.scala.MongoDatabase
-import org.mongodb.scala.bson.conversions.Bson
+import com.bhameyie.suggester.api.domain.protocols._
 
 
 object SearchController {
@@ -19,7 +17,6 @@ class SearchController(ranker: ActorRef, cityFinder: ActorRef) extends Actor wit
 
       cityFinder ! SearchByQuery(sender(), name)
 
-
     case FindCity(name, Some(coordinates)) =>
       log.debug(s"got request to find city $name with coordinates $coordinates")
 
@@ -31,22 +28,19 @@ class SearchController(ranker: ActorRef, cityFinder: ActorRef) extends Actor wit
 
       res.originator ! SearchResult.Nothing
 
+    case res: MultipleFound =>
+      log.debug(s"Found multiple records matching ${res.searchedName}")
+
+      ranker ! ComputeCityRankings(res.originator, res.searchedName, res.records)
+
     case res: SingleMatch =>
       log.debug(s"Single match found on ${res.searchedName}")
 
       res.originator ! SearchResult.Matches(List(RankedCityRecord(1.0, res.cityRecord)))
 
-    case res: MultipleFound =>
-      log.debug(s"Found multiple records matching ${res.searchedName}")
+    case res: RankedResults =>
+      log.debug(s"Found multiple ranked results matching ${res.searchedName}")
 
-      ranker ! ComputeCityRankings(res.originator, res.searchedName, res.records)
-  }
-}
-
-
-class MatchRanker extends Actor with ActorLogging{
-  override def receive: Receive = {
-    case request:ComputeCityRankings=>
-
+      res.originator ! SearchResult.Matches(res.records)
   }
 }
