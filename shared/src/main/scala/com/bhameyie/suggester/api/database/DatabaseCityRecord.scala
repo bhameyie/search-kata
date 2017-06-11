@@ -1,12 +1,21 @@
 package com.bhameyie.suggester.api.database
 
-import com.typesafe.config.Config
-import org.mongodb.scala.MongoDatabase
-
 /**
   * Created by bhameyie on 6/10/17.
   */
-case class DatabaseCityRecord(spatialId:String)
+
+
+//first coordinate element is the longitude, the next one is the latitude
+case class DbCoordinate(
+                         coordinates: List[Double],
+                           `type`: String="Point"
+                       )
+
+case class DatabaseCityRecord(spatialId:String,
+                              name:String,
+                             country:String,
+                              location:DbCoordinate,
+                             adminRegion:Option[String])
 
 
 

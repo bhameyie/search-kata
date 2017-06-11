@@ -14,6 +14,9 @@ object ValidationFailure{
     override def toString: String = "The specified coordinates are out of bound"
   }
 
+  case object NotANumber extends ValidationFailure{
+    override def toString: String = "At least one of the coordinate is not a decimal"
+  }
 
   case object MissingCoordinatePoint extends ValidationFailure{
     override def toString: String = "Both the 'long' and 'lat' must be supplied when one is supplied"

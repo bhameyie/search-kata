@@ -1,8 +1,7 @@
 package com.bhameyie.suggester.api.rest.dtos
 
-import akka.http.scaladsl.model.StatusCode
 import com.bhameyie.suggester.api.domain.protocols.SearchResult
-import de.heikoseeberger.akkahttpcirce.FailFastCirceSupport._
+import com.bhameyie.suggester.api.domain.protocols.SearchResult.{Matches, Nothing}
 
 /**
   * Created by bhameyie on 6/10/17.
@@ -17,5 +16,14 @@ case class PresentableSuggestion(
 
 
 object PresentableSuggestions {
-  def apply(searchResult: SearchResult): Seq[PresentableSuggestion] = ???
+  def apply(searchResult: SearchResult): Seq[PresentableSuggestion] = {
+    searchResult match {
+      case Nothing => Seq()
+      case Matches(records) =>
+        records.map(e => PresentableSuggestion(e.record.name,
+          e.record.coordinates.latitude.toString,
+          e.record.coordinates.longitude.toString,
+          e.score))
+    }
+  }
 }
