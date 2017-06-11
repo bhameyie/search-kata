@@ -11,7 +11,7 @@ object SupervisedActorFactory {
     val cityFinder = createCityFinder(mongoDatabase)
     val ranker = createMatchRanker()
 
-    SupervisionStrategizer.basicSupervision(SearchController(ranker, cityFinder), "cityFinder")
+    SupervisionStrategizer.basicSupervision(SearchController(ranker, cityFinder), "searchController")
 
   }
 

@@ -11,6 +11,8 @@ case class RankedCityRecord(score: Double, record: CityRecord)
 case class CityRecord(spatialId: GeoSpatialId, name: String, country: String,
                       coordinates: Coordinates, adminRegion: Option[String]) {
 
+  def formattedName:String = List(name,adminRegion.orNull,country).mkString(", ")
+
   def canEqual(a: Any): Boolean = a.isInstanceOf[CityRecord]
 
   override def equals(that: Any): Boolean = that match {
@@ -19,7 +21,7 @@ case class CityRecord(spatialId: GeoSpatialId, name: String, country: String,
   }
 
   override def hashCode: Int = {
-    spatialId.id.hashCode
+    formattedName.hashCode
   }
 }
 

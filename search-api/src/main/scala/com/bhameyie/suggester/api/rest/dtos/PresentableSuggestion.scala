@@ -20,7 +20,7 @@ object PresentableSuggestions {
     searchResult match {
       case Nothing => Seq()
       case Matches(records) =>
-        records.map(e => PresentableSuggestion(e.record.name,
+        records.map(e => PresentableSuggestion(e.record.formattedName,
           e.record.coordinates.latitude.toString,
           e.record.coordinates.longitude.toString,
           e.score))
