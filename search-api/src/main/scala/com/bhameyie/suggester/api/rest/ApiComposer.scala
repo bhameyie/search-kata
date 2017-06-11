@@ -1,5 +1,4 @@
-package com.bhameyie.suggester.api.rest
-
+package com.bhameyie.suggester.rest
 
 import java.util.UUID
 import java.util.concurrent.TimeUnit

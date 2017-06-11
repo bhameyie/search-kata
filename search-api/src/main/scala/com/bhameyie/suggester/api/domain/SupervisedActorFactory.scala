@@ -1,4 +1,4 @@
-package com.bhameyie.suggester.api.domain
+package com.bhameyie.suggester.domain
 
 import akka.actor.{ActorRef, ActorSystem}
 import com.bhameyie.suggester.api.actors.SupervisionStrategizer

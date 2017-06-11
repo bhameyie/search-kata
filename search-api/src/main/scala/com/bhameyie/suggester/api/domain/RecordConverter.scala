@@ -1,4 +1,4 @@
-package com.bhameyie.suggester.api.domain
+package com.bhameyie.suggester.domain
 
 import com.bhameyie.suggester.api.database.DatabaseCityRecord
 import com.bhameyie.suggester.api.domain.protocols.{CityRecord, Coordinates, GeoSpatialId}

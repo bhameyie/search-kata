@@ -1,4 +1,4 @@
-package com.bhameyie.suggester.api.database
+package com.bhameyie.suggester.database
 
 /**
   * Created by bhameyie on 6/11/17.

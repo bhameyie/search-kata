@@ -1,4 +1,4 @@
-package com.bhameyie.suggester.api.domain.protocols
+package com.bhameyie.suggester.domain.protocols
 
 /**
   * Created by bhameyie on 6/10/17.
