@@ -1,7 +1,7 @@
 package com.bhameyie.suggester.api.rest
 
 import cats.data.Validated
-import com.bhameyie.suggester.api.domain.protocols.SearchCriteria
+import com.bhameyie.suggester.api.domain.protocols.FindCity
 import com.bhameyie.suggester.api.rest.dtos.SearchRequest
 
 /**
@@ -9,7 +9,7 @@ import com.bhameyie.suggester.api.rest.dtos.SearchRequest
   */
 object Validator {
 
-  def validate(searchRequest: SearchRequest):Validated[ValidationFailure,SearchCriteria]={
+  def validate(searchRequest: SearchRequest):Validated[ValidationFailure,FindCity]={
     ???
   }
 
