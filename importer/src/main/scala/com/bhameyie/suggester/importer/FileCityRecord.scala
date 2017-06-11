@@ -28,6 +28,7 @@ object FileCityRecord {
     )
   }
 }
+
 case class FileCityRecord(
                            geonameId: Int,
                            name: String,

@@ -1,6 +1,7 @@
 package com.bhameyie.suggester.importer
 
 sealed trait ValidationFailures
+
 object ValidationFailures {
 
   case object NoArgumentsProvided extends ValidationFailures

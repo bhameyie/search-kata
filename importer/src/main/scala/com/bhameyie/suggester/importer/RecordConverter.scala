@@ -1,8 +1,8 @@
 package com.bhameyie.suggester.importer
 
-import com.bhameyie.suggester.database.{DatabaseCityRecord, DbCoordinate}
 
 object RecordConverter {
+  import com.bhameyie.suggester.database.{DatabaseCityRecord, DbCoordinate}
 
   def convert(fileCityRecord: FileCityRecord): Seq[DatabaseCityRecord] = {
 

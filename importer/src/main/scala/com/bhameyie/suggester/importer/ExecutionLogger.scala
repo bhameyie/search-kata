@@ -1,9 +1,8 @@
 package com.bhameyie.suggester.importer
 
-import com.bhameyie.suggester.importer.ValidationFailures.{NoArgumentsProvided, PathDoesNotExist, TooManyArgumentsProvided}
-import com.typesafe.scalalogging.Logger
-
 object ExecutionLogger {
+  import com.bhameyie.suggester.importer.ValidationFailures.{NoArgumentsProvided, PathDoesNotExist, TooManyArgumentsProvided}
+  import com.typesafe.scalalogging.Logger
 
   def logValidationFailures(logger: Logger)(validationFailures: ValidationFailures): Unit = {
 
