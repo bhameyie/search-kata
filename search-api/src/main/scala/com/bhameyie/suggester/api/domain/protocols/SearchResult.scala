@@ -7,10 +7,9 @@ sealed trait SearchResult
 
 object SearchResult {
 
-  case object NoMatchFound extends SearchResult
+  case object Nothing extends SearchResult
 
-  case class SingleMatch(cityRecord: CityRecord) extends SearchResult
-
-  case class MultipleFound() extends SearchResult
+  case class Matches(records: Seq[RankedCityRecord]) extends SearchResult
 
 }
+
