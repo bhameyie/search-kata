@@ -4,26 +4,22 @@ import scala.util.{Failure, Success}
 
 object Main extends App  {
 
-  import org.mongodb.scala._
   import akka.actor.ActorSystem
   import akka.stream.scaladsl._
   import akka.stream.{ActorMaterializer, ActorMaterializerSettings, Supervision}
   import akka.util.ByteString
   import cats.data.Validated.{Invalid, Valid}
   import com.bhameyie.suggester.database.{ApplicationDatabase, Collections, DatabaseCityRecord}
-  import com.mongodb.client.model.IndexOptions
   import com.typesafe.config.ConfigFactory
   import com.typesafe.scalalogging.Logger
-  import org.mongodb.scala.model.Filters._
-  import org.mongodb.scala.result.DeleteResult
+  import org.mongodb.scala._
 
   private val conf = ConfigFactory.load()
   private val recordsCollection = {
     val mongoDatabase = ApplicationDatabase(conf)
 
     val coll = mongoDatabase.getCollection[DatabaseCityRecord](Collections.cityRecords)
-    coll.createIndex(org.mongodb.scala.model.Indexes.geo2d("location"))
-    coll.createIndex(org.mongodb.scala.model.Indexes.text("spatialId"), new IndexOptions().unique(true))
+    coll.createIndex(Document("location" -> "2dsphere")).toFuture
     coll
   }
 
