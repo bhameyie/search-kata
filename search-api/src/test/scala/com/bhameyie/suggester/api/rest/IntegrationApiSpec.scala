@@ -1,23 +1,22 @@
 package com.bhameyie.suggester.api.rest
 
-import akka.actor.ActorSystem
 import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.testkit.ScalatestRouteTest
-import akka.stream.ActorMaterializer
-import akka.testkit.{DefaultTimeout, ImplicitSender, TestKit}
+import akka.testkit.TestKit
 import com.bhameyie.suggester.api.rest.dtos.PresentableSuggestion
 import com.bhameyie.suggester.database.{ApplicationDatabase, Collections, DatabaseCityRecord, DbCoordinate}
 import com.typesafe.config.ConfigFactory
 import org.mongodb.scala.Document
-import org.scalatest.{BeforeAndAfterAll, Matchers, WordSpec, WordSpecLike}
+import org.scalatest.{BeforeAndAfterAll, Matchers, WordSpec}
 
 import scala.concurrent.{Await, ExecutionContextExecutor}
 
 class IntegrationApiSpec extends WordSpec with ScalatestRouteTest with Matchers with BeforeAndAfterAll {
 
-  import scala.concurrent.duration._
   import io.circe.generic.auto._
   import io.circe.parser.decode
+
+  import scala.concurrent.duration._
 
   implicit val executionContext: ExecutionContextExecutor = system.dispatcher
 

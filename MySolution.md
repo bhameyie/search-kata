@@ -51,7 +51,7 @@ GET /suggestions?q=A
 ]
 ```
 
-The score is independent from the proximity of the calling user. However, sorting order takes into consideration how close the caller claims he is to the cities that matches a particular name.
+The score is independent from the proximity of the calling user. However, sorting order takes into consideration how close the caller claims he is to the cities that matches a particular name. The reasoning behind it is that a user is likely to want the closer results if coordinates are supplied in the query.
 
 #### What is missing
 
