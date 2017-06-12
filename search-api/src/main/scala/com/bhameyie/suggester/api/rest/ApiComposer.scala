@@ -32,7 +32,7 @@ object ApiComposer {
     implicit val timeout: Timeout = 10 seconds
     implicit val rejectionHandler = RejectionHandler.default
 
-    val logger: LoggingAdapter = Logging(actorSystem, "ProfileApiLayer")
+    val logger: LoggingAdapter = Logging(actorSystem, "ApiComposer")
 
     val database = ApplicationDatabase(conf)
 
@@ -55,6 +55,7 @@ object ApiComposer {
           case Valid(a) =>
 
             logger.debug(s"valid search request $searchReq")
+
             onComplete(a) {
               case Success(res) =>
                 complete(res)
