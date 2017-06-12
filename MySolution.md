@@ -55,7 +55,7 @@ The score is independent from the proximity of the calling user. However, sortin
 
 #### What is missing
 
-- Perf tests :(. Didn't get to them by my deadline.
+- Perf tests :(. Didn't get to them by my deadline. From testing the API via Postman, most requests take between 45 to 150 ms to complete.
 
 #### Some enhancement ideas
 
