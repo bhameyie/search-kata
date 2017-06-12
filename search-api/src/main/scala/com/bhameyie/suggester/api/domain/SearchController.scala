@@ -23,7 +23,6 @@ class SearchController(ranker: ActorRef, cityFinder: ActorRef) extends Actor wit
 
       cityFinder ! SearchByQueryAndCoordinates(sender(), name, coordinates)
 
-
     case res: NoMatchFound =>
       log.debug(s"no match found on ${res.searchedName}")
 

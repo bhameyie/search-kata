@@ -1,16 +1,13 @@
 package com.bhameyie.suggester.api.rest
 
-import akka.http.scaladsl.model.StatusCodes
-import akka.http.scaladsl.testkit.ScalatestRouteTest
-import com.bhameyie.suggester.api.domain.protocols.{Coordinates, FindCity}
+import com.bhameyie.suggester.api.domain.protocols._
 import com.bhameyie.suggester.api.rest.dtos.SearchRequest
 import org.scalatest.prop.Checkers
 import org.scalatest.{Matchers, WordSpec}
 
-
 class ValidatorSpecs extends WordSpec with Matchers with Checkers {
 
-  "For invalid requests, Validate" should{
+  "For invalid requests, Validate" should {
     "reject missing long coordinates" in {
       val req = SearchRequest("bla", None, Some("34"))
       val res = Validator.validate(req)
@@ -21,7 +18,7 @@ class ValidatorSpecs extends WordSpec with Matchers with Checkers {
     }
 
     "reject missing lat coordinates" in {
-      val req = SearchRequest("bla", Some("34"),None)
+      val req = SearchRequest("bla", Some("34"), None)
       val res = Validator.validate(req)
 
       res.isInvalid should equal(true)
@@ -30,7 +27,7 @@ class ValidatorSpecs extends WordSpec with Matchers with Checkers {
     }
 
     "reject out of lower bound lat" in {
-      val req = SearchRequest("bla", Some("34"),Some("-91.999"))
+      val req = SearchRequest("bla", Some("34"), Some("-91.999"))
       val res = Validator.validate(req)
 
       res.isInvalid should equal(true)
@@ -40,7 +37,7 @@ class ValidatorSpecs extends WordSpec with Matchers with Checkers {
     }
 
     "reject out of upper bound lat" in {
-      val req = SearchRequest("bla", Some("34"),Some("90.0001"))
+      val req = SearchRequest("bla", Some("34"), Some("90.0001"))
       val res = Validator.validate(req)
 
       res.isInvalid should equal(true)
@@ -50,7 +47,7 @@ class ValidatorSpecs extends WordSpec with Matchers with Checkers {
     }
 
     "reject out of lower bound long" in {
-      val req = SearchRequest("bla", Some("-181.0001"),Some("-90"))
+      val req = SearchRequest("bla", Some("-181.0001"), Some("-90"))
       val res = Validator.validate(req)
 
       res.isInvalid should equal(true)
@@ -60,7 +57,7 @@ class ValidatorSpecs extends WordSpec with Matchers with Checkers {
     }
 
     "reject out of upper bound long" in {
-      val req = SearchRequest("bla", Some("180.0001"),Some("90"))
+      val req = SearchRequest("bla", Some("180.0001"), Some("90"))
       val res = Validator.validate(req)
 
       res.isInvalid should equal(true)
