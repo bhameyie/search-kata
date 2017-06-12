@@ -29,7 +29,7 @@ object PresentableSuggestions {
         records.map(e => PresentableSuggestion(e.record.formattedName,
           e.record.coordinates.latitude.toString,
           e.record.coordinates.longitude.toString,
-          e.score)).sortBy(-_.score)
+          e.score))
     }
   }
 }

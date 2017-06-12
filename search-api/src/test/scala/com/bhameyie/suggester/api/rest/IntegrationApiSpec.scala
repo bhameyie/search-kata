@@ -85,7 +85,7 @@ class IntegrationApiSpec extends WordSpec with ScalatestRouteTest with Matchers 
       }
     }
 
-    "return sorted set on coordinate request" in {
+    "return proximity sorted set on coordinate request" in {
       Get("/suggestions?q=Lond&long=-71.21454&lat=46.81228") ~> apiRoute ~> check {
         status shouldBe StatusCodes.OK
         val suggestionsEither = decode[List[PresentableSuggestion]](responseAs[String])
@@ -100,9 +100,7 @@ class IntegrationApiSpec extends WordSpec with ScalatestRouteTest with Matchers 
           s.score should be > 0.5
         }
 
-        suggestions.map(_.name) shouldBe List( "London, Maryland, US","New London, Connecticut, US")
-
-        suggestions.head.score should be > suggestions(1).score
+        suggestions.map(_.name) shouldBe List("New London, Connecticut, US", "London, Maryland, US")
       }
     }
   }
