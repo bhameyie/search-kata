@@ -1,9 +1,8 @@
 package com.bhameyie.suggester.importer
 
-import scala.concurrent.Await
-import scala.language.postfixOps
-
 object Main {
+  import scala.concurrent.Await
+  import scala.language.postfixOps
 
   import akka.actor.ActorSystem
   import akka.stream.scaladsl._
