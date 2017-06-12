@@ -5,6 +5,9 @@ import com.bhameyie.suggester.actors.SupervisionStrategizer
 import com.typesafe.config.Config
 import org.mongodb.scala.MongoDatabase
 
+/**
+  * Produces the actors used in the api
+  */
 object SupervisedActorFactory {
   def createSearchController(config: Config, mongoDatabase: MongoDatabase)
                             (implicit actorSystem: ActorSystem): ActorRef = {

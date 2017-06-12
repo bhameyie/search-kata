@@ -35,6 +35,7 @@ object Main {
 
     implicit val executionContext = system.dispatcher
 
+    // load the cache
     val adminCodeCache = AdminCodeCache(param.adminCodeFile.toPath)
 
     val recordsCollection: MongoCollection[DatabaseCityRecord] = {
@@ -47,6 +48,8 @@ object Main {
 
     val pumper = DataPumper.pump(recordsCollection) _
     val processCity = LineProcessor.process(adminCodeCache) _
+
+    //execute streaming operations
 
     FileIO.fromPath(param.dataFile.toPath)
       .via(Framing.delimiter(ByteString("\n"), Int.MaxValue))

@@ -6,6 +6,9 @@ import com.bhameyie.suggester.api.domain.protocols.{Coordinates, FindCity}
 import com.bhameyie.suggester.api.rest.dtos.SearchRequest
 import scala.util.Try
 
+/**
+  * Validates search requests
+  */
 object Validator {
 
   def validate(searchRequest: SearchRequest): Validated[ValidationFailure, FindCity] = {

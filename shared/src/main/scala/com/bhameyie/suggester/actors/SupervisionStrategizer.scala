@@ -1,5 +1,8 @@
 package com.bhameyie.suggester.actors
 
+/**
+  * Produces supervised resilient actors
+  */
 object SupervisionStrategizer {
 
   import akka.actor.{ActorRef, ActorSystem, Props}
@@ -14,7 +17,7 @@ object SupervisionStrategizer {
         childName = name,
         minBackoff = 3.seconds,
         maxBackoff = 30.seconds,
-        randomFactor = 0.2 // adds 20% "noise" to vary the intervals slightly
+        randomFactor = 0.2
       ))
 
     val pool = BalancingPool(5).props(supervisor)

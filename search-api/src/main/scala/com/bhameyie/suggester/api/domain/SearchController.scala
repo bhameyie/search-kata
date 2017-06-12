@@ -11,6 +11,11 @@ object SearchController {
     Props(new SearchController(ranker, cityFinder))
 }
 
+/**
+  * Actor responsible for coordinate the suggestion retrieval operation
+  * @param ranker ranker actor
+  * @param cityFinder finder actor
+  */
 class SearchController(ranker: ActorRef, cityFinder: ActorRef) extends Actor with ActorLogging {
   override def receive: Receive = {
     case FindCity(name, None) =>

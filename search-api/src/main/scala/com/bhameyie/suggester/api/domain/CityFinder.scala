@@ -14,6 +14,10 @@ object CityFinder {
   def apply(mongoDatabase: MongoDatabase): Props = Props(new CityFinder(mongoDatabase))
 }
 
+/**
+  * Actor responsible for looking up cities in the database
+  * @param mongoDatabase
+  */
 class CityFinder(mongoDatabase: MongoDatabase) extends Actor with ActorLogging {
 
   import akka.pattern.pipe
@@ -25,8 +29,16 @@ class CityFinder(mongoDatabase: MongoDatabase) extends Actor with ActorLogging {
     coll
   }
 
+  /**
+    * Perform the db lookup
+    * @param q
+    * @param originator
+    * @param nameQuery
+    * @return
+    */
   private def search(q: Bson, originator: ActorRef, nameQuery: String) = {
     log.debug(s"looking up documents from query $q")
+
     val recs = recordsCollection.find(q)
       .limit(15)
       .toFuture()

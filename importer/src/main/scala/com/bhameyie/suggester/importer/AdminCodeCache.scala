@@ -8,6 +8,9 @@ import akka.util.ByteString
 
 import scala.concurrent.{Await, ExecutionContext}
 
+/**
+  * Loads admin1codes used for mapping purposes
+  */
 object AdminCodeCache {
 
   import scala.concurrent.duration._

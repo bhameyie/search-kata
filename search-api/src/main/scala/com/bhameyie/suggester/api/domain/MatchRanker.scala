@@ -8,6 +8,9 @@ object MatchRanker {
   def apply(): Props = Props[MatchRanker]()
 }
 
+/**
+  * Actor responsible for assigning a score city suggestion
+  */
 class MatchRanker extends Actor with ActorLogging {
 
   import org.apache.commons.lang3.StringUtils
@@ -17,6 +20,7 @@ class MatchRanker extends Actor with ActorLogging {
 
       val rankedCityRecords = request.records.par.map { e =>
 
+        // using Jaro-Winkler distance from apache commons.
         val score = StringUtils.getJaroWinklerDistance(request.searchedName, e.name)
 
         RankedCityRecord(score, e)

@@ -1,5 +1,8 @@
 package com.bhameyie.suggester.api.rest
 
+/**
+  * The Http service builder
+  */
 object ApiComposer {
 
   import akka.actor.ActorSystem
@@ -24,6 +27,14 @@ object ApiComposer {
   import scala.language.postfixOps
   import scala.util.{Failure, Success}
 
+  /**
+    * Produces all the routes
+    * @param conf
+    * @param actorSystem
+    * @param actorMaterializer
+    * @param executionContext
+    * @return
+    */
   def compose(conf: Config)(
     implicit actorSystem: ActorSystem,
     actorMaterializer: ActorMaterializer,

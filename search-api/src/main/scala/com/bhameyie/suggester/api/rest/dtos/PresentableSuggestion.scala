@@ -4,6 +4,13 @@ import com.bhameyie.suggester.api.domain.protocols.SearchResult
 import com.bhameyie.suggester.api.domain.protocols.SearchResult.{Matches, Nothing}
 
 
+/**
+  * Found suggestion to be sent back to the client
+  * @param name
+  * @param latitude
+  * @param longitude
+  * @param score
+  */
 case class PresentableSuggestion(
                                   name: String,
                                   latitude: String,
@@ -11,6 +18,9 @@ case class PresentableSuggestion(
                                   score: Double
                                 )
 
+/**
+  * Converts `SearchResults` into `PresentableSuggestions`
+  */
 object PresentableSuggestions {
   def apply(searchResult: SearchResult): Seq[PresentableSuggestion] = {
     searchResult match {

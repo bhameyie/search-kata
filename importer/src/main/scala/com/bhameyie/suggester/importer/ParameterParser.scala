@@ -4,6 +4,9 @@ import java.io.File
 
 import scopt.OptionParser
 
+/**
+  * Parser for command line arguments
+  */
 object ParameterParser {
   def apply(): OptionParser[RunParameters] = {
     new scopt.OptionParser[RunParameters]("importer") {

@@ -1,6 +1,9 @@
 package com.bhameyie.suggester.database
 
 
+/**
+  * Mongo database
+  */
 object ApplicationDatabase {
 
   import java.util

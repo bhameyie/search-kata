@@ -19,7 +19,6 @@ object WebServer {
     val portNumber = conf.getInt("hosting.port")
 
     val bindingFuture = Http().bindAndHandle(ApiComposer.compose(conf), hostName, portNumber)
-    println(s"Ready at $hostName:$portNumber")
 
     sys.addShutdownHook(
       bindingFuture

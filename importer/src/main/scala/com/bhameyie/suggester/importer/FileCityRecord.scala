@@ -1,6 +1,11 @@
 package com.bhameyie.suggester.importer
 
 object FileCityRecord {
+  /**
+    * Reads a 19 column tsv row
+    * @param tsv
+    * @return
+    */
   def apply(tsv: Array[String]): FileCityRecord = {
 
     FileCityRecord(
@@ -29,6 +34,28 @@ object FileCityRecord {
   }
 }
 
+/**
+  * City record found from tsv
+  * @param geonameId
+  * @param name
+  * @param asciiName
+  * @param alternateNames
+  * @param latitude
+  * @param longitude
+  * @param featureClass
+  * @param featureCode
+  * @param countryCode
+  * @param cc2
+  * @param admin1Code
+  * @param admin2Code
+  * @param admin3Code
+  * @param admin4Code
+  * @param population
+  * @param elevation
+  * @param dem
+  * @param timezone
+  * @param modificationDate
+  */
 case class FileCityRecord(
                            geonameId: Int,
                            name: String,

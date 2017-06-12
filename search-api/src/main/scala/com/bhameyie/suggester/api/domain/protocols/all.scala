@@ -8,6 +8,14 @@ case class GeoSpatialId(id: Int)
 
 case class RankedCityRecord(score: Double, record: CityRecord)
 
+/**
+  * Represents a city record. Is Unique from its `formattedName`
+  * @param spatialId
+  * @param name
+  * @param country
+  * @param coordinates
+  * @param adminRegion
+  */
 case class CityRecord(spatialId: GeoSpatialId, name: String, country: String,
                       coordinates: Coordinates, adminRegion: Option[String]) {
 
@@ -25,4 +33,3 @@ case class CityRecord(spatialId: GeoSpatialId, name: String, country: String,
   }
 }
 
-case class UnanticipatedFailure(originator: ActorRef, reason: String, stage: PipelineStage)

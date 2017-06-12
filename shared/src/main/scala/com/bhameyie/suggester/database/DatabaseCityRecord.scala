@@ -1,20 +1,24 @@
 package com.bhameyie.suggester.database
 
-import org.bson.types.ObjectId
-import org.mongodb.scala.bson.ObjectId
-
 /**
-  * Created by bhameyie on 6/10/17.
+  * Coordinates. First coordinate element is the longitude, the next one is the latitude
+  * @param coordinates
+  * @param `type`
   */
-
-
-//first coordinate element is the longitude, the next one is the latitude
 case class DbCoordinate(
                          coordinates: List[Double],
                            `type`: String="Point"
                        )
 
 
+/**
+  * City database object
+  * @param spatialId
+  * @param name
+  * @param country
+  * @param location
+  * @param adminRegion
+  */
 case class DatabaseCityRecord(spatialId:Int,
                               name:String,
                              country:String,
