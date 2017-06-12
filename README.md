@@ -66,3 +66,8 @@ These responses are meant to provide guidance. The exact values can vary based o
 ## References
 
 - Geonames [city data](http://download.geonames.org/export/dump)
+
+
+## My Solution
+
+[Find it here](MySolution)
