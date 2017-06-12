@@ -1,5 +1,8 @@
 # [Search-kata](https://github.com/coveo/backend-coding-challenge)
 
+## My Solution
+
+[Find it here](MySolution.md)
 
 ## Requirements
 
@@ -67,7 +70,3 @@ These responses are meant to provide guidance. The exact values can vary based o
 
 - Geonames [city data](http://download.geonames.org/export/dump)
 
-
-## My Solution
-
-[Find it here](MySolution)
