@@ -1,57 +1,60 @@
 package com.bhameyie.suggester.importer
 
+import scala.concurrent.Await
+import scala.language.postfixOps
+
 object Main {
 
   import akka.actor.ActorSystem
   import akka.stream.scaladsl._
   import akka.stream.{ActorMaterializer, ActorMaterializerSettings, Supervision}
   import akka.util.ByteString
-  import cats.data.Validated.{Invalid, Valid}
   import com.bhameyie.suggester.database.{ApplicationDatabase, Collections, DatabaseCityRecord}
-  import com.typesafe.config.ConfigFactory
   import com.typesafe.scalalogging.Logger
   import org.mongodb.scala._
-
+  import scala.concurrent.duration._
   import scala.util.{Failure, Success}
-
-  private val conf = ConfigFactory.load()
-  private val recordsCollection: MongoCollection[DatabaseCityRecord] = {
-    val mongoDatabase = ApplicationDatabase(conf)
-
-    val coll = mongoDatabase.getCollection[DatabaseCityRecord](Collections.cityRecords)
-    coll.createIndex(Document("location" -> "2dsphere")).toFuture
-    coll
-  }
-
-  private implicit val system = {
-    val s = ActorSystem("Suggester")
-    sys.addShutdownHook(s.terminate())
-    s
-  }
 
   private val logger: Logger = Logger("Processor")
 
-  private val validityLogging = ExecutionLogger.logValidationFailures(logger) _
-
   private val decider: Supervision.Decider = _ => Supervision.Stop
-
-  private implicit val materializer = ActorMaterializer(
-    ActorMaterializerSettings(system).withSupervisionStrategy(decider))
-
-  private implicit val executionContext = system.dispatcher
-  private val pumper = DataPumper.pump(recordsCollection) _
 
   def main(args: Array[String]): Unit = {
 
-    Validator.validate(args) match {
-      case Invalid(e) => validityLogging(e)
+    implicit val system = {
+      val s = ActorSystem("Suggester")
+      sys.addShutdownHook(s.terminate())
+      s
+    }
 
-      case Valid(path) =>
+    implicit val materializer = ActorMaterializer(
+      ActorMaterializerSettings(system).withSupervisionStrategy(decider))
 
-        FileIO.fromPath(path)
+    implicit val executionContext = system.dispatcher
+
+    ParameterParser().parse(args, RunParameters()) match {
+
+      case None =>
+        Await.ready(system.terminate(), 10 seconds)
+
+      case Some(param) =>
+        val adminCodeCache = AdminCodeCache(param.adminCodeFile.toPath)
+
+        val recordsCollection: MongoCollection[DatabaseCityRecord] = {
+          val mongoDatabase = ApplicationDatabase(param.mongoUrl, param.mongoDb)
+
+          val coll = mongoDatabase.getCollection[DatabaseCityRecord](Collections.cityRecords)
+          coll.createIndex(Document("location" -> "2dsphere")).toFuture
+          coll
+        }
+
+        val pumper = DataPumper.pump(recordsCollection) _
+        val processCity = LineProcessor.process(adminCodeCache) _
+
+        FileIO.fromPath(param.dataFile.toPath)
           .via(Framing.delimiter(ByteString("\n"), Int.MaxValue))
           .map(_.utf8String)
-          .map(LineProcessor.process)
+          .map(processCity)
           .mapAsync(4)(pumper)
           .to(Sink.ignore).run().onComplete {
 
@@ -60,7 +63,8 @@ object Main {
           case Success(_) =>
 
             logger.debug("COMPLETED SUCCESSFULLY")
-            system.terminate()
+            Await.ready(system.terminate(), 10 seconds)
+
         }
     }
   }

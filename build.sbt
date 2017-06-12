@@ -25,7 +25,6 @@ lazy val searchApi = (project in file("search-api")).
       "io.circe" %% "circe-jawn" % circeVersion,
       "io.circe" %% "circe-parser" % circeVersion,
       "org.apache.commons" % "commons-lang3" % "3.5",
-      "com.github.scopt" % "scopt_2.11" % "3.6.0",
 
       "com.typesafe.akka" %% "akka-http-testkit" % akkaHttpVersion % Test,
       "org.scalatest" %% "scalatest" % "3.0.1" % Test
@@ -39,6 +38,7 @@ lazy val importer = project
     libraryDependencies ++= Seq(
       "ch.qos.logback" % "logback-classic" % "1.1.3",
       "com.typesafe.akka" %% "akka-stream" % akkaVersion,
+      "com.github.scopt" % "scopt_2.12" % "3.6.0",
       "com.typesafe.scala-logging" %% "scala-logging" % "3.5.0"
     )
   ).dependsOn(shared).enablePlugins(JavaAppPackaging)
