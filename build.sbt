@@ -39,6 +39,7 @@ lazy val importer = project
       "ch.qos.logback" % "logback-classic" % "1.1.3",
       "com.typesafe.akka" %% "akka-stream" % akkaVersion,
       "com.github.scopt" % "scopt_2.12" % "3.6.0",
+      "org.scalatest" %% "scalatest" % "3.0.1" % Test,
       "com.typesafe.scala-logging" %% "scala-logging" % "3.5.0"
     )
   ).dependsOn(shared).enablePlugins(JavaAppPackaging)
