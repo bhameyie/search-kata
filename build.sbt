@@ -28,7 +28,8 @@ lazy val searchApi = (project in file("search-api")).
       "com.typesafe.akka" %% "akka-http-testkit" % akkaHttpVersion % Test,
       "org.scalatest" %% "scalatest" % "3.0.1" % Test
     )
-  ).dependsOn(shared)
+  ).dependsOn(shared).enablePlugins(JavaServerAppPackaging)
+
 
 lazy val importer = project
   .settings(
@@ -38,7 +39,7 @@ lazy val importer = project
       "com.typesafe.akka" %% "akka-stream" % akkaVersion,
       "com.typesafe.scala-logging" %% "scala-logging" % "3.5.0"
     )
-  ).dependsOn(shared)
+  ).dependsOn(shared).enablePlugins(JavaAppPackaging)
 
 lazy val root = (project in file(".")).
   settings(inThisBuild(List(
