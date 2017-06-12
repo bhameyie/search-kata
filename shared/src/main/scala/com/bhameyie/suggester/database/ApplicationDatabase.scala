@@ -14,7 +14,6 @@ object ApplicationDatabase {
 
   import scala.collection.JavaConverters._
 
-
   def apply(config: Config): MongoDatabase = {
     apply(config.getString("mongo.url"), config.getString("mongo.database"))
   }

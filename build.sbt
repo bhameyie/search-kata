@@ -25,6 +25,8 @@ lazy val searchApi = (project in file("search-api")).
       "io.circe" %% "circe-jawn" % circeVersion,
       "io.circe" %% "circe-parser" % circeVersion,
       "org.apache.commons" % "commons-lang3" % "3.5",
+      "com.github.scopt" % "scopt_2.11" % "3.6.0",
+
       "com.typesafe.akka" %% "akka-http-testkit" % akkaHttpVersion % Test,
       "org.scalatest" %% "scalatest" % "3.0.1" % Test
     )
